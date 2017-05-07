@@ -1,7 +1,16 @@
 var express = require('express');
 var path = require('path');
 var app = express();
+var mongooose = require('mongooose');
 
+mongooose.connect("mongodb://nodejstutorial:node8989@ds133281.mlab.com:33281/nodejstutorial");
+var db = mongooose.connection;
+db.once("open",function () {
+  console.log("DB connected!");
+});
+db.on("error",function (err){
+  console.log("DB ERROR :", err);
+})
 app.set("view engine", 'ejs');
 app.use(express.static(path.join(__dirname, 'public')));
 
